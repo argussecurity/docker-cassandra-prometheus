@@ -10,3 +10,6 @@ ADD http://central.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0
 ADD prometheus-config.yml /usr/app/prometheus-config.yml
 RUN chmod +r /usr/app/jmx_prometheus_javaagent.jar && \
     echo 'JVM_OPTS="$JVM_OPTS -javaagent:/usr/app/jmx_prometheus_javaagent.jar=${PROMETHEUS_PORT:-31500}:/usr/app/prometheus-config.yml"' >> $CASSANDRA_CONFIG/cassandra-env.sh
+
+ENTRYPOINT ["/bin/sh", "-c"]
+CMD ["/docker-entrypoint.sh", "cassandra", "-f"]
