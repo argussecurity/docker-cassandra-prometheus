@@ -1,6 +1,9 @@
-FROM cassandra:3.3
+FROM cassandra:3.5
 
 ENV CASSANDRA_CONFIG=/etc/cassandra
+
+# install curl
+RUN apt-get update && apt-get install -y curl
 
 # authentication
 RUN sed -i -e "s/^authenticator.*/authenticator: PasswordAuthenticator/" $CASSANDRA_CONFIG/cassandra.yaml
